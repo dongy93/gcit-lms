@@ -315,7 +315,7 @@ public class LibManage {
 			if(inputCheck.equals("1")) {
 				valid = true;
 				System.out.println();
-				bookAdmin();
+				authorAdmin();
 			}
 			else if(inputCheck.equals("2")) {
 				valid = true;
@@ -348,7 +348,88 @@ public class LibManage {
 			}
 		}
 	}
+	//TODO
 	public static void bookAdmin() {
+		valid = false;
+		int bookAuthor;
+		String newBookAuthor;
+		try {
+			System.out.println("You are in the Authors table. What would you like to do?");
+			System.out.println("1) Add");
+			System.out.println("2) Update");
+			System.out.println("3) Delete");
+			System.out.println("0) Quit");
+			//Input new book
+			if(inputCheck.equals("1")) {
+				System.out.println("Input the new title of the book: ");
+				String newTitle = scan.nextLine();
+				newTitle = scan.nextLine();
+				//Create the author of the new book
+				System.out.println("Input a number to select among the existing authors or 0 to create a new author for this book");
+				displayQuery = "*select * from tbl_author";
+				PreparedStatement dispstmt = conn.prepareStatement(displayQuery);
+				ResultSet rsDisp = dispstmt.executeQuery();
+				System.out.println("ID	Author Name");
+				while(rsDisp.next()) {
+					int id = rsDisp.getInt("authorId");
+					String name = rsDisp.getString("authorName");
+					System.out.println(id + ")	" + name);
+				}
+				bookAuthor = scan.nextInt();
+				if(bookAuthor == 0) {
+					System.out.println("What is the name of the new author?");
+					newBookAuthor = scan.nextLine();
+					newBookAuthor = scan.nextLine();
+				}
+				//Create the publisher of the new book
+				System.out.println("Input a number to select among the existing publishers or 0 to create a new publisher");
+				displayQuery = "select * from tbl_publisher";
+				PreparedStatement dispstmt2 = conn.prepareStatement(displayQuery);
+				ResultSet rsDisp2 = dispstmt2.executeQuery();
+				System.out.println("ID	Publisher Name	Publisher Address	Publisher Phone Number");
+				while(rsDisp.next()) {
+					int id = rsDisp2.getInt("publisherId");
+					String pubName = rsDisp2.getString("publisherName");
+					String pubAddress = rsDisp2.getString("publisherAddress");
+					String pubPhone = rsDisp2.getString("publisherPhone");
+					System.out.println(id + ")	" + pubName + "	" + pubAddress + "	" + pubPhone);
+				}
+
+			}
+			else if(inputCheck.equals("3")) {
+				System.out.println("Select the book to delete: ");
+				displayQuery = "select * from tbl_book";
+				PreparedStatement dispstmt = conn.prepareStatement(displayQuery);
+				ResultSet rsDisp = dispstmt.executeQuery();
+				System.out.println("ID	Title 	publisher ID");
+				while(rsDisp.next()) {
+					int id = rsDisp.getInt("bookId");
+					String name = rsDisp.getString("title");
+					int pubId = rsDisp.getInt("pubId");
+					System.out.println(id + ")	" + name + " 	" + pubId);
+				}
+				idCheck = scan.nextInt();
+				createQuery = "delete from tbl_book where bookId=?";
+				PreparedStatement crestmt = conn.prepareStatement(createQuery);
+				crestmt.setInt(1, idCheck);
+				crestmt.executeUpdate();
+				System.out.println("Delete successful");
+				admin();
+			}
+			else if(inputCheck.equals("0")) {
+				valid = true;
+				System.out.println("Thank you for using the GCIT manager. The program will now close.");
+				System.exit(0);
+			}
+			else {
+				System.out.println("That is not a valid option, please enter 1, 2, or 3. Press 0 to quit.");
+			}
+		}	catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static void authorAdmin() {
 		valid = false;
 		try{	
 			System.out.println("You are in the Authors table. What would you like to do?");
@@ -446,8 +527,6 @@ public class LibManage {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-
 	}
 	public static void publishAdmin() {
 		valid = false;
