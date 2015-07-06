@@ -1,10 +1,12 @@
 package com.gcit.lms.domain;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 public class Author {
 	private int authorId;
 	private String authorName;
+	private List<Book> books;
 	/**
 	 * @return the authorId
 	 */
@@ -29,7 +31,18 @@ public class Author {
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
 	}
-	
+	/**
+	 * @return the books
+	 */
+	public List<Book> getBooks() {
+		return books;
+	}
+	/**
+	 * @param books the books to set
+	 */
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
 	public static void main(String[] args){
 		try{
 			String className = "com.gcit.lms.domain.Author";

@@ -9,7 +9,12 @@ import java.util.List;
 import com.gcit.lms.domain.Book_Copies;
 import com.gcit.lms.domain.Borrower;
 
-public class Book_CopiesDAO extends BaseDAO {
+public class Book_CopiesDAO extends BaseDAO<Book_Copies> {
+	public Book_CopiesDAO(Connection conn) throws Exception {
+		super(conn);
+		// TODO Auto-generated constructor stub
+	}
+
 	public void create(Book_Copies book_copies) throws Exception {
 		save("insert into tbl_book_copies (bookId, branchId, noOfCopies) values(?, ?, ?)",
 				new Object[] { book_copies.getBook().getBookId(), book_copies.getBranch().getBranchId(), book_copies.getCopies() });
@@ -53,6 +58,13 @@ public class Book_CopiesDAO extends BaseDAO {
 		}
 		return borrowers;
 
+	}
+
+	@Override
+	public List<Book_Copies> extractDataFirstLevel(ResultSet rs)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

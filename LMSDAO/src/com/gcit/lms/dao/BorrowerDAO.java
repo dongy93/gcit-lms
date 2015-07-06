@@ -10,6 +10,11 @@ import com.gcit.lms.domain.Borrower;
 
 public class BorrowerDAO extends BaseDAO {
 
+	public BorrowerDAO(Connection conn) throws Exception {
+		super(conn);
+		// TODO Auto-generated constructor stub
+	}
+
 	public void create(Borrower borrower) throws Exception {
 		save("insert into tbl_borrower (name, address, phone) values(?, ?, ?)",
 				new Object[] { borrower.getName(), borrower.getAddress(), borrower.getPhone() });
@@ -53,6 +58,12 @@ public class BorrowerDAO extends BaseDAO {
 		}
 		return borrowers;
 
+	}
+
+	@Override
+	public List extractDataFirstLevel(ResultSet rs) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

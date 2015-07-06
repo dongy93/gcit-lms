@@ -8,7 +8,12 @@ import java.util.List;
 
 import com.gcit.lms.domain.Genre;
 
-public class GenreDAO extends BaseDAO {
+public class GenreDAO extends BaseDAO <Genre>{
+
+	public GenreDAO(Connection conn) throws Exception {
+		super(conn);
+		// TODO Auto-generated constructor stub
+	}
 
 	public void create(Genre genre) throws Exception {
 		save("insert into tbl_genre (genre_name) values(?)",
@@ -44,13 +49,19 @@ public class GenreDAO extends BaseDAO {
 		List<Genre> genres =  new ArrayList<Genre>();
 		
 		while(rs.next()){
-			Genre a = new Genre();
-			a.setGenreId(rs.getInt("genre_id"));
-			a.setGenreName(rs.getString("genre_name"));
+			Genre g = new Genre();
+			g.setGenreId(rs.getInt("genre_id"));
+			g.setGenreName(rs.getString("genre_name"));
 			
-			genres.add(a);
+			genres.add(g);
 		}
 		return genres;
+	}
+
+	@Override
+	public List<Genre> extractDataFirstLevel(ResultSet rs) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

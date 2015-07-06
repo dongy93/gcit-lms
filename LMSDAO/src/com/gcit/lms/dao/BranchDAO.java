@@ -8,7 +8,12 @@ import java.util.List;
 
 import com.gcit.lms.domain.Branch;
 
-public class BranchDAO extends BaseDAO {
+public class BranchDAO extends BaseDAO<Branch> {
+
+	public BranchDAO(Connection conn) throws Exception {
+		super(conn);
+		// TODO Auto-generated constructor stub
+	}
 
 	public void create(Branch branch) throws Exception {
 		save("insert into tbl_library_branch (branchName, branchAddress) values(?, ?)",
@@ -52,6 +57,12 @@ public class BranchDAO extends BaseDAO {
 		}
 		return branches;
 
+	}
+
+	@Override
+	public List<Branch> extractDataFirstLevel(ResultSet rs) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
