@@ -70,7 +70,7 @@ public class Book_Loans {
 	/**
 	 * @param dueDate the dueDate to set
 	 */
-	public void setGenres(Date dueDate) {
+	public void setDueDate(Date dueDate) {
 		this.dueDate = dueDate;
 	}
 	/**

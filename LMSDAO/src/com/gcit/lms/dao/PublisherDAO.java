@@ -62,7 +62,17 @@ public class PublisherDAO extends BaseDAO {
 	@Override
 	public List extractDataFirstLevel(ResultSet rs) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		List<Publisher> publishers =  new ArrayList<Publisher>();
+		
+		while(rs.next()){
+			Publisher p = new Publisher();
+			p.setPublisherId(rs.getInt("publisherId"));
+			p.setPublisherName(rs.getString("publisherName"));
+			p.setPublisherAddress(rs.getString("publisherAddress"));
+			p.setPublisherPhone(rs.getString("publisherPhone"));
+			publishers.add(p);
+		}
+		return publishers;
 	}
 	
 	

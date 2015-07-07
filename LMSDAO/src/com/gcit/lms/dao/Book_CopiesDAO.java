@@ -46,17 +46,18 @@ public class Book_CopiesDAO extends BaseDAO<Book_Copies> {
 	@Override
 	public List extractData(ResultSet rs) throws Exception {
 		List<Book_Copies> book_copies =  new ArrayList<Book_Copies>();
+		BookDAO bdao = new BookDAO(getConnection());
+		BranchDAO brdao = new BranchDAO(getConnection());
 		
 		while(rs.next()){
-			Book_Copies a = new Book_Copies();
-			a.setBookId(rs.getBook.getInt("cardNo"));
-			a.setName(rs.getString("name"));
-			a.setAddress(rs.getString("address"));
-			a.setPhone(rs.getString("phone"));
+			Book_Copies bc = new Book_Copies();
+			bc.setBook(bdao.readOne(rs.getInt("bookId")));
+			bc.setBranch(brdao.readOne(rs.getInt("branchId")));
+			bc.setCopies(rs.getInt("noOfCopies"));
 			
-			borrowers.add(a);
+			book_copies.add(bc);
 		}
-		return borrowers;
+		return book_copies;
 
 	}
 
@@ -64,7 +65,18 @@ public class Book_CopiesDAO extends BaseDAO<Book_Copies> {
 	public List<Book_Copies> extractDataFirstLevel(ResultSet rs)
 			throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		List<Book_Copies> book_copies =  new ArrayList<Book_Copies>();
+		BookDAO bdao = new BookDAO(getConnection());
+		BranchDAO brdao = new BranchDAO(getConnection());
+		
+		while(rs.next()){
+			Book_Copies bc = new Book_Copies();
+			bc.setCopies(rs.getInt("noOfCopies"));
+			
+			book_copies.add(bc);
+		}
+		return book_copies;
+
 	}
 
 }

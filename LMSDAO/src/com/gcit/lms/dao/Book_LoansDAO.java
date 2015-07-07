@@ -52,24 +52,36 @@ public class Book_LoansDAO extends BaseDAO<Book_Loans>{
 		
 		while(rs.next()){
 			Book_Loans bl = new Book_Loans();
-			bl.setBook(bdao.readOne(rs.getInt("bookId"));
-			b.setTitle(rs.getString("title"));
-			b.setPublisher(pdao.readOne(rs.getInt("pubId")));
-			@SuppressWarnings("unchecked")
-			List<Author> authors = (List<Author>) aDao.readFirstLevel("select * from tbl_author where authorId In"
-					+ "(select authorId from tbl_book_authors where bookId=?)", new Object[] {rs.getInt("bookId")});
-			b.setAuthors(authors);
-			books.add(b);
+			bl.setBook(bdao.readOne(rs.getInt("bookId")));
+			bl.setBranch(brdao.readOne(rs.getInt("branchId")));
+			bl.setBorrower(bodao.readOne(rs.getInt("cardNo")));
+			bl.setDateOut(rs.getDate("dateOut"));
+			bl.setDueDate(rs.getDate("dueDate"));
+			bl.setDateIn(rs.getDate("dateIn"));
+			book_loans.add(bl);
 		}
 		
-		return books;
+		return book_loans;
 	}
 
 	@Override
 	public List<Book_Loans> extractDataFirstLevel(ResultSet rs)
 			throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		List<Book_Loans> book_loans =  new ArrayList<Book_Loans>();
+		BookDAO bdao = new BookDAO(getConnection());
+		BranchDAO brdao = new BranchDAO(getConnection());
+		BorrowerDAO bodao = new BorrowerDAO(getConnection());
+		
+		while(rs.next()){
+			Book_Loans bl = new Book_Loans();
+			bl.setDateOut(rs.getDate("dateOut"));
+			bl.setDueDate(rs.getDate("dueDate"));
+			bl.setDateIn(rs.getDate("dateIn"));
+			book_loans.add(bl);
+		}
+		
+		return book_loans;
 	}
 
 }

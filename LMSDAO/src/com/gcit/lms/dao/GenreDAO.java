@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gcit.lms.domain.Book;
 import com.gcit.lms.domain.Genre;
 
 public class GenreDAO extends BaseDAO <Genre>{
@@ -47,12 +48,14 @@ public class GenreDAO extends BaseDAO <Genre>{
 	@Override
 	public List extractData(ResultSet rs) throws Exception {
 		List<Genre> genres =  new ArrayList<Genre>();
-		
+		BookDAO bdao = new BookDAO(getConnection());
 		while(rs.next()){
 			Genre g = new Genre();
 			g.setGenreId(rs.getInt("genre_id"));
 			g.setGenreName(rs.getString("genre_name"));
-			
+			@SuppressWarnings("unchecked")
+			List<Book> books = (List<Book>) bdao.readFirstLevel("select * from tbl_book where bookId In"
+					+ "(select bookId from tbl_book_genres where genreId=?)", new Object[] {rs.getInt("genreId")});
 			genres.add(g);
 		}
 		return genres;
