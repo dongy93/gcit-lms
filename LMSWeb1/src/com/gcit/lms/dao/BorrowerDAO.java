@@ -29,7 +29,7 @@ public class BorrowerDAO extends BaseDAO {
 
 	public void delete(Borrower borrower) throws Exception {
 		save("delete from tbl_borrower where cardNo = ?",
-				new Object[] { borrower.getName(), borrower.getAddress(), borrower.getPhone() });
+				new Object[] { borrower.getCardNo() });
 	}
 
 	public List<Borrower> readAll() throws Exception {
