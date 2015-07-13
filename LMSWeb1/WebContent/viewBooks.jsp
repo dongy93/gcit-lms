@@ -1,35 +1,35 @@
 <%@page import="com.gcit.lms.service.AdministrativeService"%>
 <%@page import="java.util.List"%>
-<%@page import="com.gcit.lms.domain.Author"%>
+<%@page import="com.gcit.lms.domain.Book"%>
 <%
 	AdministrativeService adminService = new AdministrativeService();
-	List<Author> authors = null;
-	if (request.getAttribute("authors") != null) {
-		authors = (List<Author>) request.getAttribute("authors");
+	List<Book> books = null;
+	if (request.getAttribute("books") != null) {
+		books = (List<Book>) request.getAttribute("books");
 	} else {
-		authors = adminService.readAuthors(0, 10);
+		books = adminService.readBooks(0, 10);
 
 	}
 %>
 <%@include file="include.html"%>
 <script>
-	function searchAuthors(){
+	function searchBooks(){
 		$.ajax({
-			  url: "searchAuthors",
+			  url: "searchBooks",
 			  data: {
 				  searchString: $('#searchString').val()
 			  }
 			}).done(function(data) {
-				$('#authorsTable').html(data);
+				$('#booksTable').html(data);
 			});
 	}
 
 </script>
 ${result }
-<form action="searchAuthors" method="post">
+<form action="searchBooks" method="post">
 	<input type="text" class="col-md-8" id="searchString" name="searchString"
-		placeholder="Enter title name to search"><input type="button"
-		value="Search!" onclick="javascript:searchAuthors();">
+		placeholder="Enter title to search"><input type="button"
+		value="Search" onclick="javascript:searchBooks();">
 </form>
 
 <nav>
@@ -46,32 +46,34 @@ ${result }
   </ul>
 </nav>
 
-<table class="table" id="authorsTable">
+<table class="table" id="booksTable">
 	<tr>
-		<th>Author ID</th>
-		<th>Author Name</th>
-		<th>Edit Author</th>
-		<th>Delete Author</th>
+		<th>Book ID</th>
+		<th>Book Title</th>
+		<th>Publisher ID</th>
+		
+		<th>Edit Book</th>
+		<th>Delete Book</th>
 	</tr>
 	<%
-		for (Author a : authors) {
+		for (Book b : books) {
 	%>
 	<tr>
 		<td>
 			<%
-				out.println(a.getAuthorId());
+				out.println(b.getBookId());
 			%>
 		</td>
 		<td>
 			<%
-				out.println(a.getAuthorName());
+				out.println(b.getTitle());
 			%>
 		</td>
 		<td><button type="button" class="btn btn-md btn-success"
 				data-toggle="modal" data-target="#myModal1"
-				href="editAuthor.jsp?authorId=<%=a.getAuthorId()%>">Edit</button></td>
+				href="editBook.jsp?bookId=<%=b.getBookId()%>">Edit</button></td>
 		<td><button type="button" class="btn btn-md btn-danger"
-				onclick="javascript:location.href='deleteAuthor?authorId=<%=a.getAuthorId()%>';">Delete</button></td>
+				onclick="javascript:location.href='deleteBook?bookId=<%=b.getBookId()%>';">Delete</button></td>
 	</tr>
 	<%
 		}

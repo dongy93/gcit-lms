@@ -5,7 +5,6 @@
  String authorId = request.getParameter("authorId");
  Author author = adminService.readAuthor(Integer.parseInt(authorId));
 %>
-<%@include file="include.html"%>
 <div class="modal-body">
 <form action="editAuthor" method="post">
 			Enter Author Name: <input type="text" name="authorName" value=<%=author.getAuthorName()%>>

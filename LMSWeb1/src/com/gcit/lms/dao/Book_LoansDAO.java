@@ -36,8 +36,8 @@ public class Book_LoansDAO extends BaseDAO<Book_Loans>{
 		return (List<Book_Loans>) read("select * from tbl_book_loans", null);
 	}
 
-	public Book_Loans readOne(int bookId, int branchId) throws Exception {
-		List<Book_Loans> book_loans = (List<Book_Loans>) read("select * from tbl_book_loans", new Object[] {bookId, branchId});
+	public Book_Loans readOne(int cardNo, int bookId, int branchId) throws Exception {
+		List<Book_Loans> book_loans = (List<Book_Loans>) read("select * from tbl_book_loans where cardNo=?, bookId = ?, branchId = ?", new Object[] {cardNo, bookId, branchId});
 		if(book_loans!=null && book_loans.size()>0){
 			return book_loans.get(0);
 		}

@@ -9,6 +9,11 @@ ${result}
 <a href="viewPublishers.jsp">View Publishers</a><br />
 <h3>Books</h3>
 <a href="addBook.jsp">Add Book</a><br />
-<h4>Genres</h4>
+<a href="viewBooks.jsp">View Books</a><br />
+<h3>Genres</h3>
 <a href="addGenre.jsp">Add Genre</a><br />
 <a href="viewGenres.jsp">View Genres</a><br />
+<h3>Borrowers</h3>
+<a href="viewBorrowers.jsp">View Borrowers</a><br />
+<h3>Branches</h3>
+<a href="viewBranches.jsp">View Branches</a><br />

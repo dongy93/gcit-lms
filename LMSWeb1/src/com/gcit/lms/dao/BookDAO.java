@@ -18,16 +18,13 @@ public class BookDAO extends BaseDAO<Book>{
 	}
 
 	public void create(Book book) throws Exception {
-		int bookId = saveWithID("insert into tbl_book (title) values(?)",
-				new Object[] { book.getTitle()});
+		int bookId = saveWithID("insert into tbl_book (title, pubId) values(?,?)",
+				new Object[] { book.getTitle(), book.getPublisher().getPublisherId()});
 		
 		for(Author a: book.getAuthors()){
 			save("insert into tbl_book_authors (bookId, authorId) values (?,?)", 
 				new Object[]{bookId, a.getAuthorId()});
-		}
-		int pubId = saveWithID("insert into tbl_book (pubId) values (?)",
-				new Object[] { book.getPublisher().getPublisherId()});
-		
+		}		
 		for(Genre g: book.getGenres()){
 			save("insert into tbl_book_genres (bookId, genre_id) values (?,?)", 
 				new Object[]{bookId, g.getGenreId()});
@@ -70,8 +67,8 @@ public class BookDAO extends BaseDAO<Book>{
 			@SuppressWarnings("unchecked")
 			List<Author> authors = (List<Author>) aDao.readFirstLevel("select * from tbl_author where authorId In"
 					+ "(select authorId from tbl_book_authors where bookId=?)", new Object[] {rs.getInt("bookId")});
-			List<Genre> genres = (List<Genre>) gdao.readFirstLevel("select * from tbl_genre where genreId In"
-					+ "(select genreId from tbl_book_genres where bookId=?)", new Object[] {rs.getInt("bookId")});
+			List<Genre> genres = (List<Genre>) gdao.readFirstLevel("select * from tbl_genre where genre_id In"
+					+ "(select genre_id from tbl_book_genres where bookId=?)", new Object[] {rs.getInt("bookId")});
 			b.setAuthors(authors);
 			b.setGenres(genres);
 			books.add(b);
@@ -103,7 +100,7 @@ public class BookDAO extends BaseDAO<Book>{
 	public List<Book> readAll(int pageNo, int pageSize) throws Exception{
 		setPageNo(pageNo);
 		setPageSize(pageSize);
-		return (List<Book>) read("select * from tbl_bookk", null);
+		return (List<Book>) read("select * from tbl_book", null);
 		
 	}
 }

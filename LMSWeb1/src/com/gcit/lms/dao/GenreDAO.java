@@ -39,7 +39,7 @@ public class GenreDAO extends BaseDAO <Genre>{
 	}
 
 	public Genre readOne(int genre_id) throws Exception {
-		List<Genre> genres = (List<Genre>) read("select * from tbl_genre", new Object[] {genre_id});
+		List<Genre> genres = (List<Genre>) read("select * from tbl_genre where genre_id = ?", new Object[] {genre_id});
 		if(genres!=null && genres.size()>0){
 			return genres.get(0);
 		}

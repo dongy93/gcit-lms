@@ -37,7 +37,7 @@ public class PublisherDAO extends BaseDAO {
 	}
 
 	public Publisher readOne(int publisherId) throws Exception {
-		List<Publisher> publishers = (List<Publisher>) read("select * from tbl_publisher", new Object[] {publisherId});
+		List<Publisher> publishers = (List<Publisher>) read("select * from tbl_publisher where publisherId = ?", new Object[] {publisherId});
 		if(publishers!=null && publishers.size()>0){
 			return publishers.get(0);
 		}

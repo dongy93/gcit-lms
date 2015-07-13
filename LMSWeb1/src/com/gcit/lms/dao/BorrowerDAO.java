@@ -37,7 +37,7 @@ public class BorrowerDAO extends BaseDAO {
 	}
 
 	public Borrower readOne(int cardNo) throws Exception {
-		List<Borrower> borrowers = (List<Borrower>) read("select * from tbl_borrower", new Object[] {cardNo});
+		List<Borrower> borrowers = (List<Borrower>) read("select * from tbl_borrower where cardNo = ?", new Object[] {cardNo});
 		if(borrowers!=null && borrowers.size()>0){
 			return borrowers.get(0);
 		}

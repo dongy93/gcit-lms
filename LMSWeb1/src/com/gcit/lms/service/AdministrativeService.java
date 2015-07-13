@@ -273,6 +273,21 @@ public class AdministrativeService {
 		}
 
 	}
+	public void updatePublisher(Publisher p) throws Exception {
+		ConnectionUtil c = new ConnectionUtil();
+		Connection conn = c.createConnection();
+		try {
+			PublisherDAO pdao = new PublisherDAO(conn);
+			pdao.update(p);
+			conn.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+		} finally {
+			conn.close();
+		}
+
+	}
 	public List<Publisher> searchPublishers(String searchString) throws Exception{
 		ConnectionUtil c = new ConnectionUtil();
 		Connection conn = c.createConnection();

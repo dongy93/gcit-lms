@@ -37,7 +37,7 @@ public class Book_CopiesDAO extends BaseDAO<Book_Copies> {
 	}
 
 	public Book_Copies readOne(int bookId, int branchId) throws Exception {
-		List<Book_Copies> book_copies = (List<Book_Copies>) read("select * from tbl_book_copies", new Object[] {bookId, branchId});
+		List<Book_Copies> book_copies = (List<Book_Copies>) read("select * from tbl_book_copies where bookId = ?, branchId = ?", new Object[] {bookId, branchId});
 		if(book_copies!=null && book_copies.size()>0){
 			return book_copies.get(0);
 		}

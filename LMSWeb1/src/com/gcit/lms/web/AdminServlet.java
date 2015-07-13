@@ -51,7 +51,7 @@ public class AdminServlet extends HttpServlet {
 				request.getContextPath().length(),
 				request.getRequestURI().length());
 		switch (reqUrl) {
-		case "/deleteAuthor":
+		case "/deleteAuthor": 
 			deleteAuthor(request, response);
 			break;
 		case "/pageAuthors":
@@ -121,9 +121,10 @@ public class AdminServlet extends HttpServlet {
 		case "/pagePublishers":
 			pagePublishers(request, response);
 			break;
-		case "/searchPublishers":
+		case "/searchPublishers": {
 			searchPublishers(request, response);
 			break;
+		}
 		default:
 			break;
 		}
@@ -140,12 +141,14 @@ public class AdminServlet extends HttpServlet {
 				request.getContextPath().length(),
 				request.getRequestURI().length());
 		switch (reqUrl) {
-		case "/addAuthor":
+		case "/addAuthor": {
 			createAuthor(request, response);
 			break;
-		case "/addPublisher":
+		}
+		case "/addPublisher": {
 			createPublisher(request, response);
 			break;
+		}
 /*		case "/addBorrower":
 			createBorrower(request, response);
 			break;
@@ -156,24 +159,30 @@ public class AdminServlet extends HttpServlet {
 			createGenre(request, response);
 			break;
 		}
-*/		case "/addBook":
+*/		case "/addBook": {
 			addBook(request, response);
 			break;
-/*		case "/viewAuthors":
+		}
+		case "/viewAuthors": {
 			viewAuthors(request, response);
 			break;
-		case "/viewBranches":
+		}
+		case "/viewBranches": {
 			viewBranches(request, response);
 			break;
-		case "/viewBorrowers":
+		}
+		case "/viewBorrowers": {
 			viewBorrowers(request, response);
 			break;
-		case "/viewPublishers":
+		}
+		case "/viewPublishers": {
 			viewPublishers(request, response);
 			break;
-		case "/viewBooks":
+		}
+		case "/viewBooks": {
 			viewBooks(request, response);
 			break;
+		}
 		case "/viewGenres": {
 			viewGenres(request, response);
 			break;
@@ -182,7 +191,7 @@ public class AdminServlet extends HttpServlet {
 			editAuthor(request, response);
 			break;
 		}
-		case "/editGenre": {
+/*		case "/editGenre": {
 			editGenre(request, response);
 			break;
 		}
@@ -193,44 +202,48 @@ public class AdminServlet extends HttpServlet {
 		case "/editBorrower": {
 			editBorrower(request, response);
 			break;
-		}
+*/		
 		case "/editPublisher": {
 			editPublisher(request, response);
 			break;
 		}
-		case "/editBook": {
+/*		case "/editBook": {
 			editBook(request, response);
 			break;
 		}
-		case "/searchAuthors":
+*/		case "/searchAuthors": {
 			searchAuthors(request, response);
 			break;
-		case "/searchGenres":
+		}
+/*		case "/searchGenres":
 			searchGenres(request, response);
 			break;
-		case "/searchPublishers":
+*/		case "/searchPublishers": {
 			searchPublishers(request, response);
 			break;
-		case "/searchBooks":
+}
+		case "/searchBooks": {
 			searchBooks(request, response);
 			break;
-		case "/searchAuthors":
+		}
+/*		case "/searchAuthors":
 			searchAuthors(request, response);
 			break;
 		case "/searchAuthors":
 			searchAuthors(request, response);
 			break;
-*/		default:
+*/		default: {
 			break;
+}
 		}
 	}
 
 	private void addBook(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String bookTitle = request.getParameter("bookTitle");
-		int authorId = Integer.parseInt(request.getParameter("authorId"));
+		String[] authorIds = request.getParameterValues("authorId");
+		String[] genreIds = request.getParameterValues("genreId");
 		int pubId = Integer.parseInt(request.getParameter("pubId"));
-		int genreId = Integer.parseInt(request.getParameter("genreId"));
 
 		AdministrativeService adminService = new AdministrativeService();
 		List<Author> authors = new ArrayList<Author>();
@@ -239,10 +252,14 @@ public class AdminServlet extends HttpServlet {
 		Book book = new Book();
 		book.setTitle(bookTitle);
 		try {
-			authors.add(adminService.readAuthor(authorId));
+			for(String authorId : authorIds) {
+				authors.add(adminService.readAuthor(Integer.parseInt(authorId)));	
+			}
 			book.setAuthors(authors);
 			book.setPublisher(adminService.readPublisher(pubId));
-			genres.add(adminService.readGenre(genreId));
+			for(String genreId : genreIds) {
+				genres.add(adminService.readGenre(Integer.parseInt(genreId)));
+			}
 			book.setGenres(genres);
 			adminService.createBook(book);
 			request.setAttribute("result", "Book Added Successfully");
@@ -312,7 +329,18 @@ public class AdminServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
+	private List<Book> viewBooks(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		
+		try {
+			return new AdministrativeService().readBooks(0, 10);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	private void editAuthor(HttpServletRequest request,
 			HttpServletResponse response) {
 		String authorName = request.getParameter("authorName");
@@ -545,6 +573,18 @@ public class AdminServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	private List<Branch> viewBranches(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		
+		try {
+			return new AdministrativeService().readBranches(0, 10);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	private void deleteBorrower(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String cardNo = request.getParameter("cardNo");
@@ -600,6 +640,18 @@ public class AdminServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	private List<Borrower> viewBorrowers(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		
+		try {
+			return new AdministrativeService().readBorrowers(0, 10);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 	private void deletePublisher(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String publisherId = request.getParameter("publisherId");
@@ -651,6 +703,52 @@ public class AdminServlet extends HttpServlet {
 			}
 			response.getWriter().write(str.toString());
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private List<Publisher> viewPublishers(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
+		
+		try {
+			return new AdministrativeService().readPublishers(0, 10);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	private void editPublisher(HttpServletRequest request,
+			HttpServletResponse response) {
+		String publisherName = request.getParameter("publisherName");
+		String publisherAddress = request.getParameter("publisherAddress");
+		String publisherPhone = request.getParameter("publisherPhone");
+		int publisherId = Integer.parseInt(request.getParameter("publisherId"));
+		Publisher p = new Publisher();
+		p.setPublisherName(publisherName);
+		p.setPublisherId(publisherId);
+		p.setPublisherAddress(publisherAddress);
+		p.setPublisherPhone(publisherPhone);
+		AdministrativeService adminService = new AdministrativeService();
+		try {
+			adminService.updatePublisher(p);
+			request.setAttribute("result", "Publisher updated Successfully");
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			request.setAttribute("result",
+					"Publisher update failed " + e.getMessage());
+		}
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(
+				"/viewPublishers.jsp");
+		try {
+			rd.forward(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

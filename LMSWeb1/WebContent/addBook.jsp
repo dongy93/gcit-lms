@@ -15,7 +15,7 @@
 		<table class="table">
 			<tr>
 				<td>Enter Book Title:</td>
-				<td><input type="text" name="publisherName" /></td>
+				<td><input type="text" name="bookTitle" /></td>
 			</tr>
 			<tr>
 				<td>Select Author</td>
