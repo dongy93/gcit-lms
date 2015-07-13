@@ -7,19 +7,21 @@
 %>
 <%@include file="include.html"%>
 <form action="editLib" method="post">
-<body>
-<table class="table">
-		<h2>Hello Librarian - Select your branch</h2>
+
+	<h2>Hello Librarian - Select your branch</h2>
+	<table class="table">
+		
 			<tr>
 				<td>Select Branch</td>
 				<td>
 				<select name="branchId">
-					<%for(Branch br: branch){ %>
-						<option value=<%=p.getPublisherId()%>><%=p.getPublisherName() %></option>
+					<%for(Branch br: branches){ %>
+						<option value=<%=br.getBranchId()%>><%=br.getBranchName() %></option>
 					<%} %>
 				</select>
 				</td>
 			
 			</tr>
+	</table>
 
-</body>
+</form>
