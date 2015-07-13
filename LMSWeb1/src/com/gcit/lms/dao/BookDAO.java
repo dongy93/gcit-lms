@@ -34,11 +34,14 @@ public class BookDAO extends BaseDAO<Book>{
 	}
 	
 	public void update(Book book) throws Exception {
-		
+		save("update tbl_book set title = ? where bookId = ?",
+				new Object[] { book.getTitle(), book.getBookId() });
+
 	}
 	
 	public void delete(Book book) throws Exception {
-		
+		save("delete from tbl_book where bookId = ?",
+				new Object[] { book.getBookId() });
 	}
 	public List<Book> readAll() throws Exception{
 		return (List<Book>) read("select * from tbl_book", null);
@@ -46,7 +49,7 @@ public class BookDAO extends BaseDAO<Book>{
 	}
 	
 	public Book readOne(int bookId) throws Exception {
-		List<Book> books = (List<Book>) read("select * from tbl_book", new Object[] {bookId});
+		List<Book> books = (List<Book>) read("select * from tbl_book where bookId = ?", new Object[] {bookId});
 		if(books!=null && books.size()>0){
 			return books.get(0);
 		}

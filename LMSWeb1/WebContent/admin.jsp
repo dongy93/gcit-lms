@@ -14,6 +14,8 @@ ${result}
 <a href="addGenre.jsp">Add Genre</a><br />
 <a href="viewGenres.jsp">View Genres</a><br />
 <h3>Borrowers</h3>
+<a href="addBorrower.jsp">Add Borrower</a><br />
 <a href="viewBorrowers.jsp">View Borrowers</a><br />
 <h3>Branches</h3>
+<a href="addBranch.jsp">Add Branch</a><br />
 <a href="viewBranches.jsp">View Branches</a><br />

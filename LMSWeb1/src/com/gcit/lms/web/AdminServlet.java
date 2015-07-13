@@ -121,10 +121,10 @@ public class AdminServlet extends HttpServlet {
 		case "/pagePublishers":
 			pagePublishers(request, response);
 			break;
-		case "/searchPublishers": {
+		case "/searchPublishers": 
 			searchPublishers(request, response);
 			break;
-		}
+		
 		default:
 			break;
 		}
@@ -141,101 +141,103 @@ public class AdminServlet extends HttpServlet {
 				request.getContextPath().length(),
 				request.getRequestURI().length());
 		switch (reqUrl) {
-		case "/addAuthor": {
+		case "/addAuthor": 
 			createAuthor(request, response);
 			break;
-		}
-		case "/addPublisher": {
+		
+		case "/addPublisher": 
 			createPublisher(request, response);
 			break;
-		}
-/*		case "/addBorrower":
+		
+		case "/addBorrower":
 			createBorrower(request, response);
 			break;
 		case "/addBranch":
+			createBranch(request, response);
+			break;
+		case "/addGenre": 
 			createGenre(request, response);
 			break;
-		case "/addGenre": {
-			createGenre(request, response);
-			break;
-		}
-*/		case "/addBook": {
+		case "/addBook": 
 			addBook(request, response);
 			break;
-		}
-		case "/viewAuthors": {
+		case "/viewAuthors": 
 			viewAuthors(request, response);
 			break;
-		}
-		case "/viewBranches": {
+		case "/viewBranches": 
 			viewBranches(request, response);
 			break;
-		}
-		case "/viewBorrowers": {
+		case "/viewBorrowers": 
 			viewBorrowers(request, response);
 			break;
-		}
-		case "/viewPublishers": {
+		case "/viewPublishers": 
 			viewPublishers(request, response);
 			break;
-		}
-		case "/viewBooks": {
+		case "/viewBooks": 
 			viewBooks(request, response);
 			break;
-		}
-		case "/viewGenres": {
+		case "/viewGenres": 
 			viewGenres(request, response);
 			break;
-		}
-		case "/editAuthor": {
+		case "/editAuthor": 
 			editAuthor(request, response);
 			break;
-		}
-/*		case "/editGenre": {
+		case "/editGenre": 
 			editGenre(request, response);
 			break;
-		}
-		case "/editBranch": {
-			editBranch(request, response);
-			break;
-		}
-		case "/editBorrower": {
-			editBorrower(request, response);
-			break;
-*/		
-		case "/editPublisher": {
+		case "/editPublisher": 
 			editPublisher(request, response);
 			break;
-		}
 /*		case "/editBook": {
 			editBook(request, response);
 			break;
 		}
-*/		case "/searchAuthors": {
+*/		case "/searchAuthors": 
 			searchAuthors(request, response);
 			break;
-		}
-/*		case "/searchGenres":
+		case "/searchGenres":
 			searchGenres(request, response);
 			break;
-*/		case "/searchPublishers": {
+		case "/searchPublishers": 
 			searchPublishers(request, response);
 			break;
-}
-		case "/searchBooks": {
+
+		case "/searchBooks": 
 			searchBooks(request, response);
 			break;
-		}
+		
 /*		case "/searchAuthors":
 			searchAuthors(request, response);
 			break;
 		case "/searchAuthors":
 			searchAuthors(request, response);
 			break;
-*/		default: {
+*/		default: 
 			break;
-}
+
 		}
+	}
+
+	private void createBranch(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String branchName = request.getParameter("branchName");
+		String branchAddress = request.getParameter("branchAddress");
+		Branch br = new Branch();
+		br.setBranchName(branchName);
+		br.setBranchAddress(branchAddress);
+		AdministrativeService adminService = new AdministrativeService();
+		try {
+			adminService.createBranch(br);
+			request.setAttribute("result", "Branch added Successfully");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			request.setAttribute("result",
+					"Branch add failed " + e.getMessage());
+		}
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(
+				"/admin.jsp");
+		rd.forward(request, response);
 	}
 
 	private void addBook(HttpServletRequest request,
@@ -294,6 +296,44 @@ public class AdminServlet extends HttpServlet {
 
 		rd.forward(request, response);
 	}
+	/*private void editBook(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException{
+		String bookTitle = request.getParameter("bookTitle");
+		int bookId = Integer.parseInt(request.getParameter("bookId"));
+		String[] authorIds = request.getParameterValues("authorId");
+		String[] genreIds = request.getParameterValues("genreId");
+		int pubId = Integer.parseInt(request.getParameter("pubId"));
+
+		AdministrativeService adminService = new AdministrativeService();
+		List<Author> authors = new ArrayList<Author>();
+		List<Genre> genres = new ArrayList<Genre>();
+		Publisher publisher = new Publisher();
+		Book book = new Book();
+		book.setBookId(bookId);
+		book.setPublisher().setPublisherId(pubId);
+		AdministrativeService adminService = new AdministrativeService();
+		try {
+			adminService.updateAuthor(a);
+			request.setAttribute("result", "Author updated Successfully");
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			request.setAttribute("result",
+					"Author update failed " + e.getMessage());
+		}
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(
+				"/viewAuthors.jsp");
+		try {
+			rd.forward(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}*/
 	private void pageBooks(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
@@ -506,6 +546,36 @@ public class AdminServlet extends HttpServlet {
 				"/admin.jsp");
 		rd.forward(request, response);
 	}
+	private void editGenre(HttpServletRequest request,
+			HttpServletResponse response) {
+		String genre_name = request.getParameter("genre_name");
+		int genre_id = Integer.parseInt(request.getParameter("genre_id"));
+		Genre g = new Genre();
+		g.setGenreName(genre_name);
+		g.setGenreId(genre_id);
+		AdministrativeService adminService = new AdministrativeService();
+		try {
+			adminService.updateGenre(g);
+			request.setAttribute("result", "Genre updated Successfully");
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			request.setAttribute("result",
+					"Genre update failed " + e.getMessage());
+		}
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(
+				"/viewGenres.jsp");
+		try {
+			rd.forward(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	private List<Genre> viewGenres(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));
@@ -584,6 +654,29 @@ public class AdminServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	private void createBorrower(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String Name = request.getParameter("name");
+		String Address = request.getParameter("address");
+		String Phone = request.getParameter("phone");
+		Borrower bo = new Borrower();
+		bo.setName(Name);
+		bo.setAddress(Address);
+		bo.setPhone(Phone);
+		AdministrativeService adminService = new AdministrativeService();
+		try {
+			adminService.createBorrower(bo);
+			request.setAttribute("result", "Borrower added Successfully");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			request.setAttribute("result",
+					"Borrower add failed " + e.getMessage());
+		}
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(
+				"/admin.jsp");
+		rd.forward(request, response);
 	}
 	private void deleteBorrower(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -727,9 +820,9 @@ public class AdminServlet extends HttpServlet {
 		int publisherId = Integer.parseInt(request.getParameter("publisherId"));
 		Publisher p = new Publisher();
 		p.setPublisherName(publisherName);
-		p.setPublisherId(publisherId);
 		p.setPublisherAddress(publisherAddress);
 		p.setPublisherPhone(publisherPhone);
+		p.setPublisherId(publisherId);
 		AdministrativeService adminService = new AdministrativeService();
 		try {
 			adminService.updatePublisher(p);

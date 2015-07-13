@@ -1,43 +1,43 @@
 <%@page import="com.gcit.lms.service.AdministrativeService"%>
 <%@page import="java.util.List"%>
-<%@page import="com.gcit.lms.domain.Publisher"%>
+<%@page import="com.gcit.lms.domain.Branch"%>
 <%
 	AdministrativeService adminService = new AdministrativeService();
-	List<Publisher> publishers = null;
-	if (request.getAttribute("publishers") != null) {
-		publishers = (List<Publisher>) request.getAttribute("publishers");
+	List<Branch> branches = null;
+	if (request.getAttribute("branches") != null) {
+		branches = (List<Branch>) request.getAttribute("branches");
 	} else {
-		publishers = adminService.readPublishers(0, 10);
+		branches = adminService.readBranches(0, 10);
 
 	}
 %>
 <%@include file="include.html"%>
 <script>
-	function searchPublishers(){
+	function searchBranches(){
 		$.ajax({
-			  url: "searchPublishers",
+			  url: "searchBranches",
 			  data: {
 				  searchString: $('#searchString').val()
 			  }
 			}).done(function(data) {
-				$('#publishersTable').html(data);
+				$('#branchesTable').html(data);
 			});
 	}
 
 </script>
 ${result }
-<form action="searchPublishers" method="post">
+<form action="searchBranches" method="post">
 	<input type="text" class="col-md-8" id="searchString" name="searchString"
-		placeholder="Enter Publisher Name to search"><input type="button"
-		value="Search" onclick="javascript:searchPublishers();">
+		placeholder="Enter Branch Name to search"><input type="button"
+		value="Search" onclick="javascript:searchBranches();">
 </form>
 
 <nav>
   <ul class="pagination">
-    <li><a href="pagePublishers?pageNo=1">1</a></li>
-    <li><a href="pagePublishers?pageNo=2">2</a></li>
-    <li><a href="pagePublishers?pageNo=3">3</a></li>
-    <li><a href="pagePublishers?pageNo=4">4</a></li>
+    <li><a href="pageBranches?pageNo=1">1</a></li>
+    <li><a href="pageBranches?pageNo=2">2</a></li>
+    <li><a href="pageBranches?pageNo=3">3</a></li>
+    <li><a href="pageBranches?pageNo=4">4</a></li>
     <li>
       <a href="#" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
@@ -48,21 +48,19 @@ ${result }
 <table class="table">
 
 	<tr>
-		<th>Publisher Name</th>
-		<th>Publisher Address</th>
-		<th>Publisher Phone</th>
+		<th>Branch Name</th>
+		<th>Branch Address</th>
 		<th>Edit Publisher</th>
 		<th>Delete Publisher</th>
 	</tr>
-	<%for(Publisher p: publishers){ %>
+	<%for(Branch br: branches){ %>
 	<tr>
-		<td><%out.println(p.getPublisherName()); %></td>
-		<td><%out.println(p.getPublisherAddress()); %></td>
-		<td><%out.println(p.getPublisherPhone()); %></td>
+		<td><%out.println(br.getBranchName()); %></td>
+		<td><%out.println(br.getBranchAddress()); %></td>
 		<td><button type="button" class="btn btn-md btn-success"
 				data-toggle="modal" data-target="#myModal2"
-				href="editPublisher.jsp?publisherId=<%=p.getPublisherId()%>">Edit</button></td>
-		<td><button type="button" class="btn btn-md btn-danger" onclick="javascript:location.href='deletePublisher?publisherId=<%=p.getPublisherId()%>';">Delete</button></td>
+				href="editBranch.jsp?branchId=<%=br.getBranchId()%>">Edit</button></td>
+		<td><button type="button" class="btn btn-md btn-danger" onclick="javascript:location.href='deleteBranch?branchId=<%=br.getBranchId()%>';">Delete</button></td>
 	</tr>
 	<%} %>
 </table>

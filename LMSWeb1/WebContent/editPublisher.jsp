@@ -7,6 +7,7 @@
 %>
 <div class="modal-body">
 <form action="editPublisher" method="post">
+			
 			<br>Enter Publisher Name: <input type="text" name="publisherName" value=<%=publisher.getPublisherName()%>>
 			<br>Enter Publisher Address: <input type="text" name="publisherAddress" value=<%=publisher.getPublisherAddress()%>>
 			<br>Enter Publisher Phone: <input type="text" name="publisherPhone" value=<%=publisher.getPublisherPhone()%>>

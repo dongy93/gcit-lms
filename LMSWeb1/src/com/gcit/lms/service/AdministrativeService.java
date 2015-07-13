@@ -144,15 +144,10 @@ public class AdministrativeService {
 	public void deleteBook(Book book) throws Exception {
 		ConnectionUtil c = new ConnectionUtil();
 		Connection conn = c.createConnection();
+		BookDAO bdao = new BookDAO(conn);
 		try {
-			if (book == null || book.getTitle() == null) {
-				throw new Exception(
-						"This is not an existing book");
-			} else {
-				BookDAO bdao = new BookDAO(conn);
-				bdao.update(book);
-				conn.commit();
-			}
+			bdao.delete(book);
+			conn.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			conn.rollback();
@@ -299,6 +294,20 @@ public class AdministrativeService {
 		Connection conn = c.createConnection();
 		PublisherDAO pdao = new PublisherDAO(conn);
 		return pdao.readAll(pageNo, pageSize);
+	}
+	public void updateBranch(Branch branch) throws Exception {
+		ConnectionUtil c = new ConnectionUtil();
+		Connection conn = c.createConnection();
+		try {
+			BranchDAO brdao = new BranchDAO(conn);
+			brdao.update(branch);
+			conn.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			conn.rollback();
+		} finally {
+			conn.close();
+		}
 	}
 	public void createBranch(Branch branch) throws Exception {
 		ConnectionUtil c = new ConnectionUtil();

@@ -22,6 +22,9 @@
 			}).done(function(data) {
 				$('#booksTable').html(data);
 			});
+		$(document).ready(function(){
+		    $('[data-toggle="popover"]').popover();   
+		});
 	}
 
 </script>
@@ -34,10 +37,10 @@ ${result }
 
 <nav>
   <ul class="pagination">
-    <li><a href="pageAuthors?pageNo=1">1</a></li>
-    <li><a href="pageAuthors?pageNo=2">2</a></li>
-    <li><a href="pageAuthors?pageNo=3">3</a></li>
-    <li><a href="pageAuthors?pageNo=4">4</a></li>
+    <li><a href="pageBooks?pageNo=1">1</a></li>
+    <li><a href="pageBooks?pageNo=2">2</a></li>
+    <li><a href="pageBooks?pageNo=3">3</a></li>
+    <li><a href="pageBooks?pageNo=4">4</a></li>
     <li>
       <a href="#" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
@@ -67,6 +70,11 @@ ${result }
 		<td>
 			<%
 				out.println(b.getTitle());
+			%>
+		</td>
+		<td>
+			<%
+				out.println(b.getPublisher().getPublisherId());
 			%>
 		</td>
 		<td><button type="button" class="btn btn-md btn-success"
