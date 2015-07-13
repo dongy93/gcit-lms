@@ -5,9 +5,7 @@
 <%@page import="com.gcit.lms.domain.Publisher"%>
 <%@page import="com.gcit.lms.domain.Borrower" %>
 <%AdministrativeService adminService = new AdministrativeService();
- List<Author> authors = adminService.readAuthors();
- List<Genre> genres = adminService.readGenres();
- List<Publisher> pubs = adminService.readPublishers();
+ List<Borrower> borrowers = adminService.readBorrowers();
 %>
 <%@include file="include.html"%>
 <form action="addBorrower" method="post">
@@ -16,15 +14,15 @@
 		<table class="table">
 			<tr>
 				<td>Enter Borrower Name:</td>
-				<td><input type="text" name="Name" /></td>
+				<td><input type="text" name="name" /></td>
 			</tr>
 			<tr>
 				<td>Enter Borrower Address:</td>
-				<td><input type="text" name="Address" /></td>
+				<td><input type="text" name="address" /></td>
 			</tr>
 			<tr>
 				<td>Enter Borrower Phone:</td>
-				<td><input type="text" name="Phone" /></td>
+				<td><input type="text" name="phone" /></td>
 			</tr>
 		</table>
 		<input type="submit">

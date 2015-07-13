@@ -27,9 +27,7 @@ import com.gcit.lms.service.AdministrativeService;
 		"/deleteGenre", "/searchGenres", "/pageGenres", "/editGenre", "/viewPublishers", "/deletePublisher",
 		"/searchPublishers", "/pagePublishers", "/editPublisher", "/addBranch", "/viewBranches", "/deleteBranch",
 		"/editBranch", "/searchBranches", "/pageBranches", "/addBorrower", "/viewBorrowers", "/deleteBorrower",
-		"/editBorrower", "/searchBorrowers", "/pageBorrowers", "/addCopies", "/viewCopies", "/deleteCopies",
-		"/editCopies", "/searchCopies", "/pageCopies", "/addLoan", "/viewLoans", "/deleteLoan", "/editLoan",
-		"/searchLoans", "/pageLoans", "/viewBooks", "/deleteBook", "/editBook", "/searchBooks", "/pageBooks"})
+		"/editBorrower", "/searchBorrowers", "/pageBorrowers", "/viewBooks", "/deleteBook", "/editBook", "/searchBooks", "/pageBooks"})
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -87,25 +85,6 @@ public class AdminServlet extends HttpServlet {
 		case "/searchGenres":
 			searchGenres(request, response);
 			break;
-/*		case "/deleteCopies":
-			deleteCopies(request, response);
-			break;
-		case "/pageCopies":
-			pageCopies(request, response);
-			break;
-		case "/searchCopies":
-			searchCopies(request, response);
-			break;
-		case "/deleteLoans":
-			deleteLoans(request, response);
-			break;
-		case "/pageLoans":
-			pageLoans(request, response);
-			break;
-		case "/searchLoans":
-			searchLoans(request, response);
-			break;
-*/
 		case "/deleteBorrower":
 			deleteBorrower(request, response);
 			break;
