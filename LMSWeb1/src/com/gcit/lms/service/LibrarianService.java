@@ -26,14 +26,14 @@ public class LibrarianService {
 			conn.close();
 		}
 	}
-	public List<Branch> readBranches() throws Exception {
+	public List<Branch> libReadBranches() throws Exception {
 		ConnectionUtil c = new ConnectionUtil();
 		Connection conn = c.createConnection();
 		BranchDAO brdao = new BranchDAO(conn);
 		return brdao.readAll();
 	}
 
-	public Branch readBranch(int branchId) throws Exception {
+	public Branch libReadBranch(int branchId) throws Exception {
 		ConnectionUtil c = new ConnectionUtil();
 		Connection conn = c.createConnection();
 		BranchDAO brdao = new BranchDAO(conn);
