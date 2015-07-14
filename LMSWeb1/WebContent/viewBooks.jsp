@@ -10,7 +10,7 @@
 	if (request.getAttribute("books") != null) {
 		books = (List<Book>) request.getAttribute("books");
 	} else {
-		books = adminService.readBooks(0, 10);
+		books = adminService.readBooks(0, 30);
 
 	}
 %>
@@ -37,7 +37,7 @@ ${result }
 		placeholder="Enter title to search"><input type="button"
 		value="Search" onclick="javascript:searchBooks();">
 </form>
-    <div id="first-container">
+
     <table class="table" id="booksTable">
 	<tr>
 		<th>Book Title</th>
@@ -87,32 +87,6 @@ ${result }
 	%>
 </table>
     
-    <div class="my-navigation">
-        <div class="simple-pagination-first"></div>
-        <div class="simple-pagination-previous"></div>
-        <div class="simple-pagination-page-numbers"></div>
-        <div class="simple-pagination-next"></div>
-        <div class="simple-pagination-last"></div>
-    </div>
-    <div class="simple-pagination-page-x-of-x"></div>
-    <div class="simple-pagination-showing-x-of-x"></div>
-    <div>
-        Display <select class="simple-pagination-items-per-page"></select> items per page.
-    </div>
-    <div>
-        Go directly to page <select class="simple-pagination-select-specific-page"></select>.
-    </div>
-</div>
-</div>
-        <script>
-            (function($) {
-
-                $('#first-container').simplePagination({
-                    items_per_page:2,
-                    number_of_visible_page_numbers: 2
-                });
-            })(jQuery);
-        </script>
 
 
 <!-- Modal -->
