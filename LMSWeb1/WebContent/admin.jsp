@@ -1,4 +1,5 @@
 <%@include file="include.html"%>
+<div align="center">
 <h2>Hello Admin - Welcome to GCIT Library Management System</h2>
 ${result}
 <h3>Authors</h3>
@@ -19,3 +20,4 @@ ${result}
 <h3>Branches</h3>
 <a href="addBranch.jsp">Add Branch</a><br />
 <a href="viewBranches.jsp">View Branches</a><br />
+</div>

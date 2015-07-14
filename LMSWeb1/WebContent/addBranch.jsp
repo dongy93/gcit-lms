@@ -13,7 +13,7 @@
 		<table class="table">
 			<tr>
 				<td>Enter Branch Name:</td>
-				<td><input type="text" name="publisherName" /></td>
+				<td><input type="text" name="branchName" /></td>
 			</tr>
 			<tr>
 				<td>Enter Branch Address:</td>

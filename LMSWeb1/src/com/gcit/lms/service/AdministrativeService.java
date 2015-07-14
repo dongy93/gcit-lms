@@ -161,6 +161,12 @@ public class AdministrativeService {
 		BookDAO bdao = new BookDAO(conn);
 		return bdao.readByTitle(searchString);
 	}
+	public Book readBook(int bookId) throws Exception {
+		ConnectionUtil c = new ConnectionUtil();
+		Connection conn = c.createConnection();
+		BookDAO bdao = new BookDAO(conn);
+		return bdao.readOne(bookId);
+	}
 	public List<Book> readBooks(int pageNo, int pageSize) throws Exception {
 		ConnectionUtil c = new ConnectionUtil();
 		Connection conn = c.createConnection();

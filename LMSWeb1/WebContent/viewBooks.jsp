@@ -1,6 +1,9 @@
 <%@page import="com.gcit.lms.service.AdministrativeService"%>
 <%@page import="java.util.List"%>
 <%@page import="com.gcit.lms.domain.Book"%>
+<%@page import="com.gcit.lms.domain.Genre"%>
+<%@page import="com.gcit.lms.domain.Publisher"%>
+<%@page import="com.gcit.lms.domain.Author"%>
 <%
 	AdministrativeService adminService = new AdministrativeService();
 	List<Book> books = null;
@@ -34,26 +37,13 @@ ${result }
 		placeholder="Enter title to search"><input type="button"
 		value="Search" onclick="javascript:searchBooks();">
 </form>
-
-<nav>
-  <ul class="pagination">
-    <li><a href="pageBooks?pageNo=1">1</a></li>
-    <li><a href="pageBooks?pageNo=2">2</a></li>
-    <li><a href="pageBooks?pageNo=3">3</a></li>
-    <li><a href="pageBooks?pageNo=4">4</a></li>
-    <li>
-      <a href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
-
-<table class="table" id="booksTable">
+    <div id="first-container">
+    <table class="table" id="booksTable">
 	<tr>
-		<th>Book ID</th>
 		<th>Book Title</th>
 		<th>Publisher ID</th>
+		<th>Genres</th>
+		<th>Authors</th>
 		
 		<th>Edit Book</th>
 		<th>Delete Book</th>
@@ -64,17 +54,26 @@ ${result }
 	<tr>
 		<td>
 			<%
-				out.println(b.getBookId());
-			%>
-		</td>
-		<td>
-			<%
 				out.println(b.getTitle());
 			%>
 		</td>
 		<td>
 			<%
 				out.println(b.getPublisher().getPublisherId());
+			%>
+		</td>
+		<td>
+			<%
+				for (Genre g : b.getGenres()) {
+					out.println(g.getGenreName());
+				}
+			%>
+		</td>
+		<td>
+			<%
+				for (Author a : b.getAuthors()) {
+					out.println(a.getAuthorName());
+				}
 			%>
 		</td>
 		<td><button type="button" class="btn btn-md btn-success"
@@ -87,6 +86,34 @@ ${result }
 		}
 	%>
 </table>
+    
+    <div class="my-navigation">
+        <div class="simple-pagination-first"></div>
+        <div class="simple-pagination-previous"></div>
+        <div class="simple-pagination-page-numbers"></div>
+        <div class="simple-pagination-next"></div>
+        <div class="simple-pagination-last"></div>
+    </div>
+    <div class="simple-pagination-page-x-of-x"></div>
+    <div class="simple-pagination-showing-x-of-x"></div>
+    <div>
+        Display <select class="simple-pagination-items-per-page"></select> items per page.
+    </div>
+    <div>
+        Go directly to page <select class="simple-pagination-select-specific-page"></select>.
+    </div>
+</div>
+</div>
+        <script>
+            (function($) {
+
+                $('#first-container').simplePagination({
+                    items_per_page:2,
+                    number_of_visible_page_numbers: 2
+                });
+            })(jQuery);
+        </script>
+
 
 <!-- Modal -->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

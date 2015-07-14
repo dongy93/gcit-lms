@@ -3,7 +3,7 @@
 <%@page import="com.gcit.lms.domain.Branch"%>
 
 <%LibrarianService librarianService = new LibrarianService();
- List <Branch> branches = librarianService.libReadBranches();
+ List<Branch> branches = librarianService.libReadBranches();
 %>
 <%@include file="include.html"%>
 <form action="editLib" method="post">

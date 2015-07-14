@@ -48,7 +48,6 @@ ${result }
 
 <table class="table" id="genresTable">
 	<tr>
-		<th>Genre ID</th>
 		<th>Genre Name</th>
 		<th>Edit Genre</th>
 		<th>Delete Genre</th>
@@ -57,11 +56,6 @@ ${result }
 		for (Genre g : genres) {
 	%>
 	<tr>
-		<td>
-			<%
-				out.println(g.getGenreId());
-			%>
-		</td>
 		<td>
 			<%
 				out.println(g.getGenreName());

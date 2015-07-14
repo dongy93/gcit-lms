@@ -167,11 +167,11 @@ public class AdminServlet extends HttpServlet {
 		case "/editPublisher": 
 			editPublisher(request, response);
 			break;
-/*		case "/editBook": {
+		case "/editBook": {
 			editBook(request, response);
 			break;
 		}
-*/		case "/searchAuthors": 
+		case "/searchAuthors": 
 			searchAuthors(request, response);
 			break;
 		case "/searchGenres":
@@ -184,7 +184,9 @@ public class AdminServlet extends HttpServlet {
 		case "/searchBooks": 
 			searchBooks(request, response);
 			break;
-		
+		case "/searchBranches":
+			searchBranches(request, response);
+			break;
 /*		case "/searchAuthors":
 			searchAuthors(request, response);
 			break;
@@ -275,34 +277,26 @@ public class AdminServlet extends HttpServlet {
 
 		rd.forward(request, response);
 	}
-	/*private void editBook(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException{
-		String bookTitle = request.getParameter("bookTitle");
+	private void editBook(HttpServletRequest request,
+			HttpServletResponse response) {
+		String title = request.getParameter("title");
 		int bookId = Integer.parseInt(request.getParameter("bookId"));
-		String[] authorIds = request.getParameterValues("authorId");
-		String[] genreIds = request.getParameterValues("genreId");
-		int pubId = Integer.parseInt(request.getParameter("pubId"));
-
-		AdministrativeService adminService = new AdministrativeService();
-		List<Author> authors = new ArrayList<Author>();
-		List<Genre> genres = new ArrayList<Genre>();
-		Publisher publisher = new Publisher();
-		Book book = new Book();
-		book.setBookId(bookId);
-		book.setPublisher().setPublisherId(pubId);
+		Book b = new Book();
+		b.setTitle(title);
+		b.setBookId(bookId);
 		AdministrativeService adminService = new AdministrativeService();
 		try {
-			adminService.updateAuthor(a);
-			request.setAttribute("result", "Author updated Successfully");
+			adminService.updateBook(b);
+			request.setAttribute("result", "Book updated Successfully");
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			request.setAttribute("result",
-					"Author update failed " + e.getMessage());
+					"Book update failed " + e.getMessage());
 		}
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(
-				"/viewAuthors.jsp");
+				"/viewBooks.jsp");
 		try {
 			rd.forward(request, response);
 		} catch (ServletException e) {
@@ -312,7 +306,7 @@ public class AdminServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}*/
+	}
 	private void pageBooks(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		int pageNo = Integer.parseInt(request.getParameter("pageNo"));

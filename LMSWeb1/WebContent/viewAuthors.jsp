@@ -48,7 +48,6 @@ ${result }
 
 <table class="table" id="authorsTable">
 	<tr>
-		<th>Author ID</th>
 		<th>Author Name</th>
 		<th>Edit Author</th>
 		<th>Delete Author</th>
@@ -57,11 +56,6 @@ ${result }
 		for (Author a : authors) {
 	%>
 	<tr>
-		<td>
-			<%
-				out.println(a.getAuthorId());
-			%>
-		</td>
 		<td>
 			<%
 				out.println(a.getAuthorName());

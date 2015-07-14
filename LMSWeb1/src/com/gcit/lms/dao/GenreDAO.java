@@ -24,13 +24,13 @@ public class GenreDAO extends BaseDAO <Genre>{
 
 	public void update(Genre genre) throws Exception {
 		save("update tbl_genre set genre_name = ? where genre_id = ?",
-				new Object[] { genre.getGenreName() });
+				new Object[] { genre.getGenreName(), genre.getGenreId() });
 
 	}
 
 	public void delete(Genre genre) throws Exception {
 		save("delete from tbl_genre where genre_id = ?",
-				new Object[] { genre.getGenreName() });
+				new Object[] { genre.getGenreId() });
 	}
 
 	public List<Genre> readAll() throws Exception{

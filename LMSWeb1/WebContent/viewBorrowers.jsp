@@ -23,7 +23,8 @@
 				$('#borrowersTable').html(data);
 			});
 	}
-
+	<script type="text/javascript" src="path_to/jquery.js"></script>
+	<script type="text/javascript" src="path_to/jquery.simplePagination.js"></script>
 </script>
 ${result }
 <form action="searchBorrowers" method="post">
@@ -31,20 +32,7 @@ ${result }
 		placeholder="Enter Borrower name to search"><input type="button"
 		value="Search!" onclick="javascript:searchBorrowers();">
 </form>
-
-<nav>
-  <ul class="pagination">
-    <li><a href="pageBorrowers?pageNo=1">1</a></li>
-    <li><a href="pageBorrowers?pageNo=2">2</a></li>
-    <li><a href="pageBorrowers?pageNo=3">3</a></li>
-    <li><a href="pageBorrowers?pageNo=4">4</a></li>
-    <li>
-      <a href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
+        <div id="first-container">
 
 <table class="table" id="borrowersTable">
 	<tr>
@@ -89,6 +77,32 @@ ${result }
 		}
 	%>
 </table>
+   <div class="my-navigation">
+        <div class="simple-pagination-first"></div>
+        <div class="simple-pagination-previous"></div>
+        <div class="simple-pagination-page-numbers"></div>
+        <div class="simple-pagination-next"></div>
+        <div class="simple-pagination-last"></div>
+    </div>
+    <div class="simple-pagination-page-x-of-x"></div>
+    <div class="simple-pagination-showing-x-of-x"></div>
+    <div>
+        Display <select class="simple-pagination-items-per-page"></select> items per page.
+    </div>
+    <div>
+        Go directly to page <select class="simple-pagination-select-specific-page"></select>.
+    </div>
+</div>
+</div>
+        <script>
+            (function($) {
+
+                $('#first-container').simplePagination({
+                    items_per_page:5,
+                    number_of_visible_page_numbers: 2
+                });
+            })(jQuery);
+        </script>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

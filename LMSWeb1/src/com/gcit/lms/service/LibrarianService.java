@@ -8,6 +8,7 @@ import com.gcit.lms.dao.Book_LoansDAO;
 import com.gcit.lms.dao.Book_CopiesDAO;
 import com.gcit.lms.dao.BookDAO;
 import com.gcit.lms.dao.BranchDAO;
+import com.gcit.lms.domain.Book;
 import com.gcit.lms.domain.Book_Copies;
 import com.gcit.lms.domain.Branch;
 
@@ -52,5 +53,23 @@ public class LibrarianService {
 		} finally {
 			conn.close();
 		}
+	}
+	public Book readBook(int bookId) throws Exception {
+		ConnectionUtil c = new ConnectionUtil();
+		Connection conn = c.createConnection();
+		BookDAO bdao = new BookDAO(conn);
+		return bdao.readOne(bookId);
+	}
+	public List<Book> readBooks(int pageNo, int pageSize) throws Exception {
+		ConnectionUtil c = new ConnectionUtil();
+		Connection conn = c.createConnection();
+		BookDAO bdao = new BookDAO(conn);
+		return bdao.readAll(pageNo, pageSize);
+	}
+	public List<Book_Copies> readCopies(int pageNo, int pageSize) throws Exception {
+		ConnectionUtil c = new ConnectionUtil();
+		Connection conn = c.createConnection();
+		Book_CopiesDAO bcdao = new Book_CopiesDAO(conn);
+		return bcdao.readAll(pageNo, pageSize);
 	}
 }
